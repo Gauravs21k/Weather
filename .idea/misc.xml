@@ -5,7 +5,10 @@
       <map>
         <entry key="app/src/main/res/drawable/background_rec.xml" value="0.1935" />
         <entry key="app/src/main/res/drawable/bg_rec.xml" value="0.1935" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.18181818181818182" />
+        <entry key="app/src/main/res/drawable/ic_down_arrow.xml" value="0.166" />
+        <entry key="app/src/main/res/drawable/ic_up_arrow.xml" value="0.166" />
+        <entry key="app/src/main/res/drawable/ic_visibility.xml" value="0.166" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="app/src/main/res/layout/item_daily_weather.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_hourly_forecast.xml" value="0.75" />
         <entry key="app/src/main/res/layout/tryhgh.xml" value="0.18177083333333333" />

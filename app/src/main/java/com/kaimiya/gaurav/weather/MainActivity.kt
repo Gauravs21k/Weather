@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
+import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
@@ -100,18 +101,29 @@ class MainActivity : AppCompatActivity() {
             binding.currentWeather = it
             binding.apply {
                 currentTemp.text = String.format("%.1f", it.main.temp - 273) + "\u2103"
-                humidity.text = it.main.humidity.toString()
-                wind.text = it.wind.speed.toString()
-                pressure.text = it.main.pressure.toString()
-                visibility.text = it.visibility.toString()
+                humidity.text = it.main.humidity.toString() + "%"
+                wind.text = it.wind.speed.toString() + "m/s"
+                pressure.text = it.main.pressure.toString() + "hPa"
+                feelsLikeTemp.text = "Feels like " + String.format("%.1f", it.main.feels_like - 273) + "\u2103"
+                visibility.text = ((it.visibility)/1000).toString() + "Km"
+                tempMax.text = String.format("%.1f", it.main.temp_max - 273) + "\u2103"
+                tempMin.text = String.format("%.1f", it.main.temp_min - 273) + "\u2103"
+                description.text = it.weather[0].description
                 iconWeather.setImageResource(when(it.weather[0].icon) {
                     "01d" -> R.drawable.sun
+                    "01n" -> R.drawable.moon
                     "02d" -> R.drawable.sun_cloud
+                    "02n" -> R.drawable.cloud_moon
                     "03d" -> R.drawable.cloud
+                    "03n" -> R.drawable.cloud
                     "04d" -> R.drawable.black_cloud
+                    "04n" -> R.drawable.black_cloud
                     "09d" -> R.drawable.cloud_rain
+                    "09n" -> R.drawable.cloud_rain
                     "10d" -> R.drawable.sun_rain
+                    "10n" -> R.drawable.moon_rain
                     "11d" -> R.drawable.thunder
+                    "11n" -> R.drawable.thunder
                     else -> R.drawable.sun
                 })
             }

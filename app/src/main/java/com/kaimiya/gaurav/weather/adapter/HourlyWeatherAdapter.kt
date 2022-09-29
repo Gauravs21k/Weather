@@ -29,12 +29,19 @@ class HourlyWeatherAdapter(var weatherHours: List<ThreeHourWeather>): RecyclerVi
             threeHourWeather = weatherHours[position]
             itemIcon.setImageResource(when(weatherHours[position].weather[0].icon) {
                 "01d" -> R.drawable.sun
+                "01n" -> R.drawable.moon
                 "02d" -> R.drawable.sun_cloud
+                "02n" -> R.drawable.cloud_moon
                 "03d" -> R.drawable.cloud
+                "03n" -> R.drawable.cloud
                 "04d" -> R.drawable.black_cloud
+                "04n" -> R.drawable.black_cloud
                 "09d" -> R.drawable.cloud_rain
+                "09n" -> R.drawable.cloud_rain
                 "10d" -> R.drawable.sun_rain
+                "10n" -> R.drawable.moon_rain
                 "11d" -> R.drawable.thunder
+                "11n" -> R.drawable.thunder
                 else -> R.drawable.sun
             })
 
