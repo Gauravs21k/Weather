@@ -1,15 +1,19 @@
 package com.kaimiya.gaurav.weather.viewmodel
 
 import android.location.Location
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.kaimiya.gaurav.weather.di.ActivityScope
 import com.kaimiya.gaurav.weather.model.CurrentWeather
 import com.kaimiya.gaurav.weather.model.DailyWeather
 import com.kaimiya.gaurav.weather.model.HourlyWeather
 import com.kaimiya.gaurav.weather.repository.MainRepository
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
-class MainActivityViewModel(private val mainRepository: MainRepository): ViewModel() {
+@ActivityScope
+class MainViewModel @Inject constructor(val mainRepository: MainRepository): ViewModel() {
     var job: Job? = null
     var job1: Job? = null
     val errorMessage = MutableLiveData<String>()
@@ -70,9 +74,9 @@ class MainActivityViewModel(private val mainRepository: MainRepository): ViewMod
         days.add(DailyWeather(18,25, "01d", "Wednesday", "Sep 28"))
         days.add(DailyWeather(21,29, "01d", "Thursday", "Sep 29"))
         days.add(DailyWeather(18,25, "04d", "Friday", "Sep 30"))
-        days.add(DailyWeather(18,25, "02d", "Saturday", "Sep 31"))
-        days.add(DailyWeather(18,25, "02d", "Sunday", "Sep 32"))
-        days.add(DailyWeather(18,25, "03d", "Monday", "Sep 33"))
+        days.add(DailyWeather(18,24, "02d", "Saturday", "Oct 1"))
+        days.add(DailyWeather(18,27, "02d", "Sunday", "Oct 2"))
+        days.add(DailyWeather(18,25, "03d", "Monday", "Oct 3"))
 
         dailyweather.value = days
     }

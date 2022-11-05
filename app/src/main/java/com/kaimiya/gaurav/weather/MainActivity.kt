@@ -11,13 +11,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
-import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -26,11 +24,10 @@ import com.kaimiya.gaurav.weather.adapter.DailyWeatherAdapter
 import com.kaimiya.gaurav.weather.adapter.HourlyWeatherAdapter
 import com.kaimiya.gaurav.weather.adapter.TemperatureTrendGraphLinearItemDecorator
 import com.kaimiya.gaurav.weather.databinding.ActivityMainBinding
-import com.kaimiya.gaurav.weather.network.RetrofitInstance
-import com.kaimiya.gaurav.weather.repository.MainRepository
-import com.kaimiya.gaurav.weather.viewmodel.MainActivityViewModel
-import com.kaimiya.gaurav.weather.viewmodel.MainViewModelFactory
+import com.kaimiya.gaurav.weather.di.ApplicationComponent
+import com.kaimiya.gaurav.weather.viewmodel.MainViewModel
 import java.time.LocalDateTime
+import javax.inject.Inject
 
 
 private const val SHARED_PREFERENCES_KEY = "my_shared_preferences"
@@ -38,7 +35,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     lateinit var sharedPreferences: SharedPreferences
-    private lateinit var viewModel: MainActivityViewModel
+
+    @Inject
+    lateinit var viewModel: MainViewModel
     lateinit var binding: ActivityMainBinding
     lateinit var hourlyWeatherAdapter: HourlyWeatherAdapter
     lateinit var dailyWeatherAdapter: DailyWeatherAdapter
@@ -46,19 +45,13 @@ class MainActivity : AppCompatActivity() {
     val location = Location("")
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (application as WeatherApplication).applicationComponent.mainComponentFactory().create().inject(this)
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         this.window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN, WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN)
 
         supportActionBar?.hide()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
-        val api = RetrofitInstance.api
-        val mainRepository = MainRepository(api)
-        viewModel = ViewModelProvider(
-            this,
-            MainViewModelFactory(mainRepository)
-        )[MainActivityViewModel::class.java]
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE)
